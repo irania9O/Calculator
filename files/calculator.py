@@ -3,3 +3,6 @@ class Calculator:
         #set value to sort in memory
         self.value = value
 
+    def __repr__(self):
+        # called when you print Calculator object
+        return repr(self.value)
