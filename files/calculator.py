@@ -25,5 +25,10 @@ class Calculator:
         if self.checker(value):
             self.value -= value
             return Calculator(self.value)
+      
+    def __imul__(self, value):
+        #To get called on multiplication with assignment e.g. a *=b.
+        if self.checker(value):
+            self.value *= value
+            return Calculator(self.value)
 
-            
