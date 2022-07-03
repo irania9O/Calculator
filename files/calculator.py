@@ -31,4 +31,11 @@ class Calculator:
         if self.checker(value):
             self.value *= value
             return Calculator(self.value)
+        
+    def __itruediv__(self, value):
+        #To get called on division with assignment e.g. a /=b.
+        if self.checker(value):
+            self.value /= value
+            return Calculator(self.value)
 
+        
