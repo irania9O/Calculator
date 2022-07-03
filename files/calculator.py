@@ -38,4 +38,9 @@ class Calculator:
             self.value /= value
             return Calculator(self.value)
 
+    def __ipow__(self, value):
+        #To get called on exponentswith assignment e.g. a **=b.
+        if self.checker(value):
+            self.value **= value
+            return Calculator(self.value)
         
