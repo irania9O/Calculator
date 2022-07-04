@@ -1,4 +1,4 @@
-from math import log10, sqrt, pow
+from math import log10, sqrt, pow, sin
 
 class Calculator:
     def __init__(self, value = 0):
@@ -40,7 +40,7 @@ class Calculator:
             self.value /= value
             return Calculator(self.value)
 
-    def __ipow__(self, value):
+    def __ipow__(self, value = 2):
         #To get called on exponentswith assignment e.g. a **=b.
         if self.checker(value):
             self.value = pow(self.value, value)
@@ -58,6 +58,11 @@ class Calculator:
     
     def ten_pow(self):
         #Ten to the power of self.value
-        self.value = pow(10,self.value)
+        self.value = pow(10, self.value)
         return Calculator(self.value)   
 
+    def sqrt_n(self, value):
+        #Calculate the n root
+        self.value = pow(9, 1/value)
+        return Calculator(self.value)  
+        
