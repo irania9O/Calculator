@@ -1,4 +1,4 @@
-from math import log10, sqrt, pow, sin
+from math import log10, sqrt, pow, sin, exp, log
 
 class Calculator:
     def __init__(self, value = 0):
@@ -63,6 +63,6 @@ class Calculator:
 
     def sqrt_n(self, value):
         #Calculate the n root
-        self.value = pow(9, 1/value)
+        self.value = round(exp(log(self.value) / value),10)
         return Calculator(self.value)  
         
