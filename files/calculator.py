@@ -1,3 +1,5 @@
+from math import log10
+
 class Calculator:
     def __init__(self, value = 0):
         #Set value to sort in memory.
@@ -44,3 +46,9 @@ class Calculator:
             self.value **= value
             return Calculator(self.value)
         
+    def log10(self):
+        #Calculation of logarithm in base 10.
+        self.value = log10(self.value)
+        return Calculator(self.value)        
+
+
