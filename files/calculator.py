@@ -1,4 +1,4 @@
-from math import log10
+from math import log10, sqrt
 
 class Calculator:
     def __init__(self, value = 0):
@@ -50,5 +50,10 @@ class Calculator:
         #Calculation of logarithm in base 10.
         self.value = log10(self.value)
         return Calculator(self.value)        
+
+    def sqrt_2(self):
+        #Calculate the square root
+        self.value = log10(self.value)
+        return Calculator(self.value)   
 
 
