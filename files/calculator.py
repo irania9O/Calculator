@@ -64,5 +64,9 @@ class Calculator:
     def sqrt_n(self, value):
         #Calculate the n root
         self.value = round(exp(log(self.value) / value),10)
-        return Calculator(self.value)  
-        
+        return Calculator(self.value)
+    
+    def exp(self):
+        #Calculate e raised to the power self.value
+        self.value = exp(self.value)
+        return Calculator(self.value)          
