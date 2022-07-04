@@ -73,15 +73,21 @@ class Calculator:
 
     def sin(self):
         #Calculate the sine of self.value radians.
-        self.value = exp(self.value)
+        self.value = sin(self.value)
         return Calculator(self.value)
     
     def cos(self):
         #Calculate the tangent of self.value radians.
-        self.value = exp(self.value)
+        self.value = cos(self.value)
         return Calculator(self.value)
     
     def tan(self):
         #Calculate the cosine of self.value radians.
-        self.value = exp(self.value)
+        self.value = tan(self.value)
         return Calculator(self.value)    
+
+    def negate(self):
+        self.value *= -1
+        return Calculator(self.value)   
+
+        
