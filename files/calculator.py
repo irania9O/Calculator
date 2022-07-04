@@ -1,4 +1,4 @@
-from math import log10, sqrt, pow, sin, exp, log
+from math import log10, sqrt, pow, sin, exp, log, sin, cos, tan
 
 class Calculator:
     def __init__(self, value = 0):
@@ -70,3 +70,18 @@ class Calculator:
         #Calculate e raised to the power self.value
         self.value = exp(self.value)
         return Calculator(self.value)          
+
+    def sin(self):
+        #Calculate the sine of self.value radians.
+        self.value = exp(self.value)
+        return Calculator(self.value)
+    
+    def cos(self):
+        #Calculate the tangent of self.value radians.
+        self.value = exp(self.value)
+        return Calculator(self.value)
+    
+    def tan(self):
+        #Calculate the cosine of self.value radians.
+        self.value = exp(self.value)
+        return Calculator(self.value)    
