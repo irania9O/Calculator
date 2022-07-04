@@ -1,4 +1,4 @@
-from math import log10, sqrt, pow, sin, exp, log, sin, cos, tan
+from math import log10, sqrt, pow, sin, exp, log, sin, cos, tan, factorial
 
 class Calculator:
     def __init__(self, value = 0):
@@ -87,7 +87,11 @@ class Calculator:
         return Calculator(self.value)    
 
     def negate(self):
+        #negates
         self.value *= -1
         return Calculator(self.value)   
 
-        
+    def factorial(self):
+        #Calculate self.value factorial as an integer Raises ValueError if x is not integral or is negative.
+        self.value = factorial(self.value)
+        return Calculator(self.value)               
