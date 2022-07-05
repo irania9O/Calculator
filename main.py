@@ -1,6 +1,6 @@
 from PyQt5.uic import loadUi
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLineEdit
-from PyQt5 import QtGui
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLineEdit, QShortcut
+from PyQt5.QtGui import QKeySequence, QIcon
 import sys
 from functools import partial
 
@@ -13,17 +13,20 @@ class Window(QMainWindow):
         loadUi("files/calculator_gui.ui", self)
 
         # set the icon
-        self.setWindowIcon(QtGui.QIcon("images/calculator_icon.png"))
+        self.setWindowIcon(QIcon("images/calculator_icon.png"))
 
         # set the title
         self.setWindowTitle("Calculator")
 
-        #Insert numer to #echo
+        #Insert numer to #echo and add numbers shortcuts
         for number in range(0,10):
             self.findChild(QPushButton, f"b_{number}").clicked.connect( partial(self.insert_number, number) )
-        
-        # Delete last input
+            QShortcut(QKeySequence(f"{number}"), self).activated.connect(partial(self.insert_number, number))
+ 
+              
+        # Delete last input add backspace shortcut
         self.findChild(QPushButton, "b_delete").clicked.connect( self.delete_number )
+        QShortcut(QKeySequence("Backspace"), self).activated.connect( self.delete_number )
         
         # show all the widgets
         self.show()
