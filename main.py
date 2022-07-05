@@ -27,9 +27,9 @@ class Window(QMainWindow):
             b_number.setShortcut(f"{number}")
 
         #Insert Period to #echo and add numbers shortcuts
-            b_dot = self.findChild(QPushButton, "b_dot")
-            b_dot.clicked.connect( self.insert_dot )
-            b_dot.setShortcut(".")
+        b_dot = self.findChild(QPushButton, "b_dot")
+        b_dot.clicked.connect( self.insert_dot )
+        b_dot.setShortcut(".")
 
  
         # Delete last input and add backspace shortcut
