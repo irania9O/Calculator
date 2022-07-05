@@ -3,13 +3,11 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLineEdit, Q
 from PyQt5.QtGui import QKeySequence, QIcon
 import sys
 from functools import partial
-
-from sympy import E
-
-
+from files.calculator import Calculator
 class Window(QMainWindow):
     def __init__(self):
         super(Window, self).__init__()
+        self.calculator = None
 
         # set them
         loadUi("files/calculator_gui.ui", self)
@@ -31,7 +29,6 @@ class Window(QMainWindow):
         b_dot.clicked.connect( self.insert_dot )
         b_dot.setShortcut(".")
 
- 
         # Delete last input and add backspace shortcut
         b_delete = self.findChild(QPushButton, "b_delete")
         b_delete.clicked.connect( self.delete_number )
@@ -45,11 +42,21 @@ class Window(QMainWindow):
         b_clear = self.findChild(QPushButton, "b_clear")
         b_clear.clicked.connect( self.clear_all )
         b_clear.setShortcut("Delete")        
-
+        
+        # Show calculated number
+        b_equal = self.findChild(QPushButton, "b_equal")
+        b_equal.clicked.connect( self.equal )  
+        b_equal.setShortcut("Enter")
+        QShortcut(QKeySequence("="), self).activated.connect( self.equal )
+ 
         
         # show all the widgets
         self.show()
 
+    def equal(self):
+        if self.calculator != None:
+            self.findChild(QLineEdit, "echo").setText(self.calculator.value)
+        
     def insert_dot(self):
         try:
             echo = self.findChild(QLineEdit, "echo")
