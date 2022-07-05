@@ -20,13 +20,24 @@ class Window(QMainWindow):
 
         #Insert numer to #echo and add numbers shortcuts
         for number in range(0,10):
-            self.findChild(QPushButton, f"b_{number}").clicked.connect( partial(self.insert_number, number) )
-            QShortcut(QKeySequence(f"{number}"), self).activated.connect(partial(self.insert_number, number))
+            b_number = self.findChild(QPushButton, f"b_{number}")
+            b_number.clicked.connect( partial(self.insert_number, number) )
+            b_number.setShortcut(f"{number}")
  
-              
-        # Delete last input add backspace shortcut
-        self.findChild(QPushButton, "b_delete").clicked.connect( self.delete_number )
-        QShortcut(QKeySequence("Backspace"), self).activated.connect( self.delete_number )
+        # Delete last input and add backspace shortcut
+        b_delete = self.findChild(QPushButton, "b_delete")
+        b_delete.clicked.connect( self.delete_number )
+        b_delete.setShortcut("Backspace")
+
+        # Clear all
+        b_clear_e = self.findChild(QPushButton, "b_clear_e")
+        b_clear_e.clicked.connect( self.clear_all )
+        
+        # Clear all and add Delete shortcut
+        b_clear = self.findChild(QPushButton, "b_clear")
+        b_clear.clicked.connect( self.clear_all )
+        b_clear.setShortcut("Delete")        
+
         
         # show all the widgets
         self.show()
@@ -62,7 +73,15 @@ class Window(QMainWindow):
         except Exception as e:
             print(e)
         
-        
+    def clear_all(self):
+        try:
+            echo = self.findChild(QLineEdit, "echo")
+            new_font = echo.font()
+            new_font.setPointSize(20)
+            echo.setFont(new_font)      
+            self.findChild(QLineEdit, "echo").setText('')
+        except Exception as e:
+            print(e)
 
 # create pyqt5 app
 App = QApplication(sys.argv)
