@@ -4,6 +4,8 @@ from PyQt5.QtGui import QKeySequence, QIcon
 import sys
 from functools import partial
 
+from sympy import E
+
 
 class Window(QMainWindow):
     def __init__(self):
@@ -23,6 +25,12 @@ class Window(QMainWindow):
             b_number = self.findChild(QPushButton, f"b_{number}")
             b_number.clicked.connect( partial(self.insert_number, number) )
             b_number.setShortcut(f"{number}")
+
+        #Insert Period to #echo and add numbers shortcuts
+            b_dot = self.findChild(QPushButton, "b_dot")
+            b_dot.clicked.connect( self.insert_dot )
+            b_dot.setShortcut(".")
+
  
         # Delete last input and add backspace shortcut
         b_delete = self.findChild(QPushButton, "b_delete")
@@ -42,13 +50,28 @@ class Window(QMainWindow):
         # show all the widgets
         self.show()
 
+    def insert_dot(self):
+        try:
+            echo = self.findChild(QLineEdit, "echo")
+            numbers = echo.text()
+            if numbers == "":
+                echo.setText( "0." )
+            elif not "." in numbers:
+                echo.setText( numbers + "." )
+        except Exception as e:
+            print(e)
+        
 
     def insert_number(self, number):
         try:
             echo = self.findChild(QLineEdit, "echo")
             numbers = echo.text()
-            echo.setText( numbers + str(number) )
-            count = len( numbers + str(number))
+            data = numbers + str(number)
+            if len(data) == 2 and data[1] != "." and data[0] == "0":
+                data = data[1:]
+                
+            echo.setText( data )
+            count = len( data)
 
             if count > 18 :
                 new_font_size = echo.fontInfo().pointSize() - 1 
