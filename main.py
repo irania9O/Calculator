@@ -22,6 +22,9 @@ class Window(QMainWindow):
         for number in range(0,10):
             self.findChild(QPushButton, f"b_{number}").clicked.connect( partial(self.insert_number, number) )
         
+        # Delete last input
+        self.findChild(QPushButton, "b_delete").clicked.connect( self.delete_number )
+        
         # show all the widgets
         self.show()
 
@@ -39,11 +42,24 @@ class Window(QMainWindow):
                     new_font = echo.font()
                     new_font.setPointSize(new_font_size)
                     echo.setFont(new_font)
-
- 
-    
         except Exception as e:
             print(e)
+
+    def delete_number(self):
+        try:
+            echo = self.findChild(QLineEdit, "echo")
+            echo.setText( echo.text()[:-1] )
+            
+            if len(echo.text()[:-1]) < 22 :
+                new_font_size = echo.fontInfo().pointSize() + 1 
+                if new_font_size < 20 :
+                    new_font = echo.font()
+                    new_font.setPointSize(new_font_size)
+                    echo.setFont(new_font)           
+        except Exception as e:
+            print(e)
+        
+        
 
 # create pyqt5 app
 App = QApplication(sys.argv)
