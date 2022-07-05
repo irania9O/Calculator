@@ -1582,9 +1582,46 @@ QPushButton:pressed   {
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>20</y>
+      <y>80</y>
       <width>341</width>
-      <height>111</height>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>20</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+	color: rgb(58, 134, 255);
+	background-color: white;
+	border: 2px solid rgb(58, 134, 255);
+    border-radius: 12px;
+}
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+    <property name="placeholderText">
+     <string>0 </string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="value">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>10</y>
+      <width>341</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="font">
