@@ -8,6 +8,7 @@ class Window(QMainWindow):
     def __init__(self):
         super(Window, self).__init__()
         self.calculator = None
+        self.last_func  = None
 
         # set them
         loadUi("files/calculator_gui.ui", self)
@@ -48,14 +49,43 @@ class Window(QMainWindow):
         b_equal.clicked.connect( self.equal )  
         b_equal.setShortcut("Enter")
         QShortcut(QKeySequence("="), self).activated.connect( self.equal )
- 
         
+        # Sum and add Sum shortcut
+        b_equal = self.findChild(QPushButton, "b_addition")
+        b_equal.clicked.connect( self.addition )  
+        b_equal.setShortcut("+")
+
         # show all the widgets
         self.show()
 
+
+    def addition(self):
+        self.commiter()
+        self.last_func  = 'addition'
+        data = self.findChild(QLineEdit, "echo").text()
+        if data == "": data = 0
+        if self.calculator == None:
+            number = float(data)
+            self.calculator = Calculator(number)
+        
+        self.findChild(QLineEdit, "value").setText(str(self.calculator.value))
+        self.findChild(QLineEdit, "echo").setText("")
+        
+             
+    def commiter(self):
+        if self.last_func  == 'addition':
+            data = self.findChild(QLineEdit, "echo").text()
+            if data == "": data = 0
+            self.calculator += float(data)
+
+        
     def equal(self):
         if self.calculator != None:
-            self.findChild(QLineEdit, "echo").setText(self.calculator.value)
+            self.commiter()
+            self.last_func  = None
+            self.findChild(QLineEdit, "echo").setText(str(self.calculator.value))
+            self.findChild(QLineEdit, "value").setText(str(self.calculator.value))
+
         
     def insert_dot(self):
         try:
@@ -110,6 +140,9 @@ class Window(QMainWindow):
             new_font.setPointSize(20)
             echo.setFont(new_font)      
             self.findChild(QLineEdit, "echo").setText('')
+            self.findChild(QLineEdit, "value").setText("")
+            self.calculator = None
+            self.last_func  = None
         except Exception as e:
             print(e)
 
