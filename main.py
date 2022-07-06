@@ -4,7 +4,7 @@ from PyQt5.QtGui import QKeySequence, QIcon
 import sys
 from functools import partial
 from files.calculator import Calculator
-from math import pi
+from math import factorial, pi
 class Window(QMainWindow):
     def __init__(self):
         super(Window, self).__init__()
@@ -79,11 +79,60 @@ class Window(QMainWindow):
         b_negetive = self.findChild(QPushButton, "b_negetive_2")
         b_negetive.clicked.connect( self.negate ) 
 
+        # factorial 
+        b_factorial = self.findChild(QPushButton, "b_factorial")
+        b_factorial.clicked.connect( self.factorial ) 
+
         #operator button
         self.b_operator = self.findChild(QPushButton, "b_operator")
 
         # show all the widgets
         self.show()
+
+    def factorial(self):
+        echo =  self.findChild(QLineEdit, "echo")
+        value = self.findChild(QLineEdit, "value")
+        data = echo.text()
+        if data == "":
+            try:
+                if self.calculator.value > 50000:
+                    raise Exception()
+                elif int(self.calculator.value) == float(self.calculator.value):
+                    self.calculator.factorial()
+                    value.setText(str(self.calculator.value))
+                else:
+                    msg = QMessageBox()
+                    msg.setWindowIcon(QIcon("images/calculator_icon.png"))
+                    msg.setIcon(QMessageBox.Critical)
+                    msg.setText("Accepting floats with integral values")
+                    msg.setWindowTitle("Error")
+                    msg.exec_()
+            except:
+                msg = QMessageBox()
+                msg.setWindowIcon(QIcon("images/calculator_icon.png"))
+                msg.setIcon(QMessageBox.Critical)
+                msg.setText("Overflow")
+                msg.setWindowTitle("Error")
+                msg.exec_()
+        else:
+            try:
+                if float(data) > 50000:
+                    msg = QMessageBox()
+                    msg.setWindowIcon(QIcon("images/calculator_icon.png"))
+                    msg.setIcon(QMessageBox.Critical)
+                    msg.setText("Overflow")
+                    msg.setWindowTitle("Error")
+                    msg.exec_()
+                elif int(data) == float(data):
+                    new_info = factorial(int(data))
+                    echo.setText(str(new_info))
+            except :
+                msg = QMessageBox()
+                msg.setWindowIcon(QIcon("images/calculator_icon.png"))
+                msg.setIcon(QMessageBox.Critical)
+                msg.setText("Accepting floats with integral values")
+                msg.setWindowTitle("Error")
+                msg.exec_()
 
     def negate(self):
         echo =  self.findChild(QLineEdit, "echo")
