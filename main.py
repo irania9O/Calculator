@@ -51,13 +51,29 @@ class Window(QMainWindow):
         QShortcut(QKeySequence("="), self).activated.connect( self.equal )
         
         # Sum and add Sum shortcut
-        b_equal = self.findChild(QPushButton, "b_addition")
-        b_equal.clicked.connect( self.addition )  
-        b_equal.setShortcut("+")
+        b_addition = self.findChild(QPushButton, "b_addition")
+        b_addition.clicked.connect( self.addition )  
+        b_addition.setShortcut("+")
+
+        # Sum and add Sum shortcut
+        b_multiplication = self.findChild(QPushButton, "b_multiplication")
+        b_multiplication.clicked.connect( self.multiplication )  
+        b_multiplication.setShortcut("*")
 
         # show all the widgets
         self.show()
 
+    def multiplication(self):
+        self.commiter()
+        self.last_func  = 'multiplication'
+        data = self.findChild(QLineEdit, "echo").text()
+        if data == "": data = 1
+        if self.calculator == None:
+            number = float(data)
+            self.calculator = Calculator(number)
+        
+        self.findChild(QLineEdit, "value").setText(str(self.calculator.value))
+        self.findChild(QLineEdit, "echo").setText("")
 
     def addition(self):
         self.commiter()
@@ -78,6 +94,10 @@ class Window(QMainWindow):
             if data == "": data = 0
             self.calculator += float(data)
 
+        elif self.last_func  == 'multiplication':
+            data = self.findChild(QLineEdit, "echo").text()
+            if data == "": data = 1
+            self.calculator *= float(data)
         
     def equal(self):
         if self.calculator != None:
