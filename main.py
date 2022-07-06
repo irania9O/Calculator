@@ -55,13 +55,30 @@ class Window(QMainWindow):
         b_addition.clicked.connect( self.addition )  
         b_addition.setShortcut("+")
 
-        # Sum and add Sum shortcut
+        # multiplication and add multiplication shortcut
         b_multiplication = self.findChild(QPushButton, "b_multiplication")
         b_multiplication.clicked.connect( self.multiplication )  
         b_multiplication.setShortcut("*")
 
+        # subtraction and add subtraction shortcut
+        b_subtraction = self.findChild(QPushButton, "b_subtraction")
+        b_subtraction.clicked.connect( self.subtraction )  
+        b_subtraction.setShortcut("-")
+
         # show all the widgets
         self.show()
+
+    def subtraction(self):
+        self.commiter()
+        self.last_func  = 'subtraction'
+        data = self.findChild(QLineEdit, "echo").text()
+        if data == "": data = 0
+        if self.calculator == None:
+            number = float(data)
+            self.calculator = Calculator(number)
+        
+        self.findChild(QLineEdit, "value").setText(str(self.calculator.value))
+        self.findChild(QLineEdit, "echo").setText("")
 
     def multiplication(self):
         self.commiter()
@@ -98,12 +115,17 @@ class Window(QMainWindow):
             data = self.findChild(QLineEdit, "echo").text()
             if data == "": data = 1
             self.calculator *= float(data)
-        
+
+        elif self.last_func  == 'subtraction':
+            data = self.findChild(QLineEdit, "echo").text()
+            if data == "": data = 0
+            self.calculator -= float(data)
+
     def equal(self):
         if self.calculator != None:
             self.commiter()
-            self.last_func  = None
-            self.findChild(QLineEdit, "echo").setText(str(self.calculator.value))
+            #self.last_func  = None
+            self.findChild(QLineEdit, "echo").setText("")
             self.findChild(QLineEdit, "value").setText(str(self.calculator.value))
 
         
@@ -128,14 +150,15 @@ class Window(QMainWindow):
                 data = data[1:]
                 
             echo.setText( data )
-            count = len( data)
 
-            if count > 18 :
-                new_font_size = echo.fontInfo().pointSize() - 1 
-                if new_font_size > 8 :
-                    new_font = echo.font()
-                    new_font.setPointSize(new_font_size)
-                    echo.setFont(new_font)
+            # count = len( data)
+            # if count > 18 :
+            #     new_font_size = echo.fontInfo().pointSize() - 1 
+            #     if new_font_size > 8 :
+            #         new_font = echo.font()
+            #         new_font.setPointSize(new_font_size)
+            #         echo.setFont(new_font)
+            
         except Exception as e:
             print(e)
 
