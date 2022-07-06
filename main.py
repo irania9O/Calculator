@@ -65,8 +65,25 @@ class Window(QMainWindow):
         b_subtraction.clicked.connect( self.subtraction )  
         b_subtraction.setShortcut("-")
 
+        # division and add division shortcut
+        b_division = self.findChild(QPushButton, "b_division")
+        b_division.clicked.connect( self.division )  
+        b_division.setShortcut("/")
+
         # show all the widgets
         self.show()
+
+    def division(self):
+        self.commiter()
+        self.last_func  = 'division'
+        data = self.findChild(QLineEdit, "echo").text()
+        if data == "": data = 1
+        if self.calculator == None and data != "":
+            number = float(data)
+            self.calculator = Calculator(number)
+        
+        self.findChild(QLineEdit, "value").setText(str(self.calculator.value))
+        self.findChild(QLineEdit, "echo").setText("")
 
     def subtraction(self):
         self.commiter()
@@ -120,6 +137,12 @@ class Window(QMainWindow):
             data = self.findChild(QLineEdit, "echo").text()
             if data == "": data = 0
             self.calculator -= float(data)
+
+        elif self.last_func  == 'division':
+            data = self.findChild(QLineEdit, "echo").text()
+            if data == "": data = 1
+            self.calculator /= float(data)
+
 
     def equal(self):
         if self.calculator != None:
