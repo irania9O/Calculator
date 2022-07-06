@@ -1581,9 +1581,9 @@ QPushButton:pressed   {
    <widget class="QLineEdit" name="echo">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>100</x>
       <y>80</y>
-      <width>341</width>
+      <width>271</width>
       <height>61</height>
      </rect>
     </property>
@@ -1650,6 +1650,42 @@ QPushButton:pressed   {
     </property>
     <property name="placeholderText">
      <string>0 </string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="b_operator">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>80</y>
+      <width>61</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>18</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>ArrowCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	color: white;
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955, stop:1 rgba(10, 242, 251, 255), stop:0 rgba(224, 6, 159, 255));
+	border: 2px solid rgb(58, 134, 255);
+    border-radius: 12px;
+}
+</string>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>
