@@ -69,6 +69,9 @@ class Window(QMainWindow):
         b_division = self.findChild(QPushButton, "b_division")
         b_division.clicked.connect( self.division )  
         b_division.setShortcut("/")
+ 
+        #operator button
+        self.b_operator = self.findChild(QPushButton, "b_operator")
 
         # show all the widgets
         self.show()
@@ -76,6 +79,7 @@ class Window(QMainWindow):
     def division(self):
         self.commiter()
         self.last_func  = 'division'
+        self.b_operator.setText("÷")
         data = self.findChild(QLineEdit, "echo").text()
         if data == "": data = 1
         if self.calculator == None and data != "":
@@ -88,6 +92,7 @@ class Window(QMainWindow):
     def subtraction(self):
         self.commiter()
         self.last_func  = 'subtraction'
+        self.b_operator.setText("-")
         data = self.findChild(QLineEdit, "echo").text()
         if data == "": data = 0
         if self.calculator == None:
@@ -100,6 +105,7 @@ class Window(QMainWindow):
     def multiplication(self):
         self.commiter()
         self.last_func  = 'multiplication'
+        self.b_operator.setText("×")
         data = self.findChild(QLineEdit, "echo").text()
         if data == "": data = 1
         if self.calculator == None:
@@ -112,6 +118,7 @@ class Window(QMainWindow):
     def addition(self):
         self.commiter()
         self.last_func  = 'addition'
+        self.b_operator.setText("+")
         data = self.findChild(QLineEdit, "echo").text()
         if data == "": data = 0
         if self.calculator == None:
@@ -147,7 +154,8 @@ class Window(QMainWindow):
     def equal(self):
         if self.calculator != None:
             self.commiter()
-            #self.last_func  = None
+            self.last_func  = None
+            self.b_operator.setText("=")
             self.findChild(QLineEdit, "echo").setText("")
             self.findChild(QLineEdit, "value").setText(str(self.calculator.value))
 
@@ -207,6 +215,7 @@ class Window(QMainWindow):
             echo.setFont(new_font)      
             self.findChild(QLineEdit, "echo").setText('')
             self.findChild(QLineEdit, "value").setText("")
+            self.b_operator.setText("")
             self.calculator = None
             self.last_func  = None
         except Exception as e:
