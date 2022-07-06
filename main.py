@@ -1,9 +1,10 @@
 from PyQt5.uic import loadUi
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLineEdit, QShortcut
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLineEdit, QShortcut, QMessageBox
 from PyQt5.QtGui import QKeySequence, QIcon
 import sys
 from functools import partial
 from files.calculator import Calculator
+from math import pi
 class Window(QMainWindow):
     def __init__(self):
         super(Window, self).__init__()
@@ -41,7 +42,7 @@ class Window(QMainWindow):
         
         # Clear all and add Delete shortcut
         b_clear = self.findChild(QPushButton, "b_clear")
-        b_clear.clicked.connect( self.clear_all )
+        b_clear.clicked.connect( self.clear_insert )
         b_clear.setShortcut("Delete")        
         
         # Show calculated number
@@ -69,12 +70,22 @@ class Window(QMainWindow):
         b_division = self.findChild(QPushButton, "b_division")
         b_division.clicked.connect( self.division )  
         b_division.setShortcut("/")
- 
+
+        # pi 
+        b_pi = self.findChild(QPushButton, "b_pi")
+        b_pi.clicked.connect( self.pi_insert ) 
+
         #operator button
         self.b_operator = self.findChild(QPushButton, "b_operator")
 
         # show all the widgets
         self.show()
+
+    def pi_insert(self):
+        if self.calculator == None:
+            number = float(pi)
+            self.calculator = Calculator(number)
+        self.findChild(QLineEdit, "echo").setText(str(pi))
 
     def division(self):
         self.commiter()
@@ -148,7 +159,15 @@ class Window(QMainWindow):
         elif self.last_func  == 'division':
             data = self.findChild(QLineEdit, "echo").text()
             if data == "": data = 1
-            self.calculator /= float(data)
+            if float(data) == 0:
+                msg = QMessageBox()
+                msg.setWindowIcon(QIcon("images/calculator_icon.png"))
+                msg.setIcon(QMessageBox.Critical)
+                msg.setText("Cannot divide by zero!")
+                msg.setWindowTitle("Error")
+                msg.exec_()
+            else:
+                self.calculator /= float(data)
 
 
     def equal(self):
@@ -210,14 +229,17 @@ class Window(QMainWindow):
     def clear_all(self):
         try:
             echo = self.findChild(QLineEdit, "echo")
-            new_font = echo.font()
-            new_font.setPointSize(20)
-            echo.setFont(new_font)      
             self.findChild(QLineEdit, "echo").setText('')
             self.findChild(QLineEdit, "value").setText("")
             self.b_operator.setText("")
             self.calculator = None
             self.last_func  = None
+        except Exception as e:
+            print(e)
+
+    def clear_insert(self):
+        try:
+            self.findChild(QLineEdit, "echo").setText('')
         except Exception as e:
             print(e)
 
