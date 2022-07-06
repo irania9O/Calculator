@@ -891,6 +891,9 @@ QPushButton:pressed   {
     </property>
    </widget>
    <widget class="QPushButton" name="b_parates_l">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>100</x>
@@ -934,6 +937,9 @@ QPushButton:pressed   {
     </property>
    </widget>
    <widget class="QPushButton" name="b_parates_r">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -1106,6 +1112,9 @@ QPushButton:pressed   {
     </property>
    </widget>
    <widget class="QPushButton" name="b_more">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>30</x>
