@@ -87,12 +87,20 @@ class Window(QMainWindow):
 
     def negate(self):
         echo =  self.findChild(QLineEdit, "echo")
+        value = self.findChild(QLineEdit, "value")
+        last_data = value.text()
         data = echo.text()
-        if "-" in data:
-            echo.setText(data[1:])
+        if data == "":
+            self.calculator.negate()
+            if "-" in last_data:
+                value.setText(last_data[1:])
+            else:
+                value.setText("-" + last_data)
         else:
-            echo.setText("-" + data)
-
+            if "-" in data:
+                echo.setText(data[1:])
+            else:
+                echo.setText("-" + data)
 
     def pi_insert(self):
         if self.calculator == None:
