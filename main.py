@@ -75,11 +75,24 @@ class Window(QMainWindow):
         b_pi = self.findChild(QPushButton, "b_pi")
         b_pi.clicked.connect( self.pi_insert ) 
 
+        # negate 
+        b_negetive = self.findChild(QPushButton, "b_negetive_2")
+        b_negetive.clicked.connect( self.negate ) 
+
         #operator button
         self.b_operator = self.findChild(QPushButton, "b_operator")
 
         # show all the widgets
         self.show()
+
+    def negate(self):
+        echo =  self.findChild(QLineEdit, "echo")
+        data = echo.text()
+        if "-" in data:
+            echo.setText(data[1:])
+        else:
+            echo.setText("-" + data)
+
 
     def pi_insert(self):
         if self.calculator == None:
