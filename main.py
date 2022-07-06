@@ -4,7 +4,7 @@ from PyQt5.QtGui import QKeySequence, QIcon
 import sys
 from functools import partial
 from files.calculator import Calculator
-from math import factorial, pi
+from math import factorial, pi, sqrt
 class Window(QMainWindow):
     def __init__(self):
         super(Window, self).__init__()
@@ -83,11 +83,66 @@ class Window(QMainWindow):
         b_factorial = self.findChild(QPushButton, "b_factorial")
         b_factorial.clicked.connect( self.factorial ) 
 
+        # radical 2
+        b_radical = self.findChild(QPushButton, "b_radical")
+        b_radical.clicked.connect( self.radical ) 
+
+        # radical x , y
+        b_radicalxy = self.findChild(QPushButton, "b_radical_2")
+        b_radicalxy.clicked.connect( self.radicalxy ) 
+
         #operator button
         self.b_operator = self.findChild(QPushButton, "b_operator")
 
         # show all the widgets
         self.show()
+
+    def radicalxy(self):
+        self.commiter()
+        self.last_func  = 'sqrt'
+        self.b_operator.setText("ʸ√𝔁")
+        data = self.findChild(QLineEdit, "echo").text()
+        if data == "": data = 1
+        if self.calculator == None:
+            number = float(data)
+            self.calculator = Calculator(number)
+        
+        self.findChild(QLineEdit, "value").setText(str(self.calculator.value))
+        self.findChild(QLineEdit, "echo").setText("")
+
+    def radical(self):
+        echo =  self.findChild(QLineEdit, "echo")
+        value = self.findChild(QLineEdit, "value")
+        data = echo.text()
+        if data == "":
+            try:
+                if self.calculator.value < 0:
+                    raise Exception()
+                else:
+                    self.calculator.sqrt_2()
+                    value.setText(str(self.calculator.value))
+
+            except:
+                msg = QMessageBox()
+                msg.setWindowIcon(QIcon("images/calculator_icon.png"))
+                msg.setIcon(QMessageBox.Critical)
+                msg.setText("Negative numbers have no roots")
+                msg.setWindowTitle("Error")
+                msg.exec_()
+        else:
+            try:
+                if float(data) < 0:
+                    raise Exception()
+                else:
+                    new_info = sqrt(float(data))
+                    echo.setText(str(new_info))
+            except :
+                msg = QMessageBox()
+                msg.setWindowIcon(QIcon("images/calculator_icon.png"))
+                msg.setIcon(QMessageBox.Critical)
+                msg.setText("Negative numbers have no roots")
+                msg.setWindowTitle("Error")
+                msg.exec_()
 
     def factorial(self):
         echo =  self.findChild(QLineEdit, "echo")
@@ -97,14 +152,16 @@ class Window(QMainWindow):
             try:
                 if self.calculator.value > 50000:
                     raise Exception()
+
                 elif int(self.calculator.value) == float(self.calculator.value):
                     self.calculator.factorial()
                     value.setText(str(self.calculator.value))
+                    
                 else:
                     msg = QMessageBox()
                     msg.setWindowIcon(QIcon("images/calculator_icon.png"))
                     msg.setIcon(QMessageBox.Critical)
-                    msg.setText("Accepting floats with integral values")
+                    msg.setText("Accepting positive floats with integral values")
                     msg.setWindowTitle("Error")
                     msg.exec_()
             except:
@@ -123,6 +180,7 @@ class Window(QMainWindow):
                     msg.setText("Overflow")
                     msg.setWindowTitle("Error")
                     msg.exec_()
+
                 elif int(data) == float(data):
                     new_info = factorial(int(data))
                     echo.setText(str(new_info))
@@ -130,7 +188,7 @@ class Window(QMainWindow):
                 msg = QMessageBox()
                 msg.setWindowIcon(QIcon("images/calculator_icon.png"))
                 msg.setIcon(QMessageBox.Critical)
-                msg.setText("Accepting floats with integral values")
+                msg.setText("Accepting positive floats with integral values")
                 msg.setWindowTitle("Error")
                 msg.exec_()
 
@@ -140,11 +198,14 @@ class Window(QMainWindow):
         last_data = value.text()
         data = echo.text()
         if data == "":
-            self.calculator.negate()
-            if "-" in last_data:
-                value.setText(last_data[1:])
-            else:
-                value.setText("-" + last_data)
+            try:
+                self.calculator.negate()
+                if "-" in last_data:
+                    value.setText(last_data[1:])
+                else:
+                    value.setText("-" + last_data)
+            except:
+                pass
         else:
             if "-" in data:
                 echo.setText(data[1:])
@@ -163,7 +224,7 @@ class Window(QMainWindow):
         self.b_operator.setText("÷")
         data = self.findChild(QLineEdit, "echo").text()
         if data == "": data = 1
-        if self.calculator == None and data != "":
+        if self.calculator == None:
             number = float(data)
             self.calculator = Calculator(number)
         
@@ -239,6 +300,18 @@ class Window(QMainWindow):
             else:
                 self.calculator /= float(data)
 
+        elif self.last_func  == 'sqrt':
+            data = self.findChild(QLineEdit, "echo").text()
+            if data == "": data = 1
+            try:
+                self.calculator.sqrt_n(int(data))
+            except:
+                msg = QMessageBox()
+                msg.setWindowIcon(QIcon("images/calculator_icon.png"))
+                msg.setIcon(QMessageBox.Critical)
+                msg.setText("Accepting positive floats with integral values")
+                msg.setWindowTitle("Error")
+                msg.exec_()                
 
     def equal(self):
         if self.calculator != None:
