@@ -96,11 +96,27 @@ class Window(QMainWindow):
         b_power_2 = self.findChild(QPushButton, "b_power_2")
         b_power_2.clicked.connect( self.power_2 ) 
 
+        # prower x ^ y
+        b_power_x_y = self.findChild(QPushButton, "b_power_x_y")
+        b_power_x_y.clicked.connect( self.power_x_y ) 
+
         #operator button
         self.b_operator = self.findChild(QPushButton, "b_operator")
 
         # show all the widgets
         self.show()
+    def power_x_y(self):
+        self.commiter()
+        self.last_func  = 'power'
+        self.b_operator.setText("𝔁ʸ")
+        data = self.findChild(QLineEdit, "echo").text()
+        if data == "": data = 1
+        if self.calculator == None:
+            number = float(data)
+            self.calculator = Calculator(number)
+        
+        self.findChild(QLineEdit, "value").setText(str(self.calculator.value))
+        self.findChild(QLineEdit, "echo").setText("")
 
     def power_2(self):
         echo =  self.findChild(QLineEdit, "echo")
@@ -119,7 +135,7 @@ class Window(QMainWindow):
             msg = QMessageBox()
             msg.setWindowIcon(QIcon("images/calculator_icon.png"))
             msg.setIcon(QMessageBox.Critical)
-            msg.setText("Error")
+            msg.setText("An error occurred.")
             msg.setWindowTitle("Error")
             msg.exec_()
 
@@ -338,6 +354,20 @@ class Window(QMainWindow):
                 msg.setText("Accepting positive floats with integral values")
                 msg.setWindowTitle("Error")
                 msg.exec_()                
+
+        elif self.last_func  == 'power':
+            data = self.findChild(QLineEdit, "echo").text()
+            if data == "": data = 1
+            try:
+                self.calculator **=  float(data)
+            except:
+                msg = QMessageBox()
+                msg.setWindowIcon(QIcon("images/calculator_icon.png"))
+                msg.setIcon(QMessageBox.Critical)
+                msg.setText("An error occurred.")
+                msg.setWindowTitle("Error")
+                msg.exec_()      
+
 
     def equal(self):
         if self.calculator != None:
