@@ -14,7 +14,9 @@ from functools import partial
 from files.calculator import Calculator
 from math import exp, factorial, pi, sqrt, pow, sin, cos, tan, log10
 import webbrowser
-from os.path import abspath, dirname, join
+from os import path
+
+
 class Window(QMainWindow):
     def __init__(self):
         super(Window, self).__init__()
@@ -25,7 +27,7 @@ class Window(QMainWindow):
         loadUi(self.resource_path("files/calculator_gui.ui"), self)
 
         # set the icon
-        self.setWindowIcon(self.resource_path(QIcon("images/calculator_icon.png")))
+        self.setWindowIcon(QIcon(self.resource_path("images/calculator_icon.png")))
 
         # set the title
         self.setWindowTitle("Calculator")
@@ -158,8 +160,8 @@ class Window(QMainWindow):
         self.show()
 
     def resource_path(self, relative_path):
-        base_path = getattr(sys, '_MEIPASS', dirname(abspath(__file__)))
-        return join(base_path, relative_path)
+        base_path = getattr(sys, "_MEIPASS", path.dirname(path.abspath(__file__)))
+        return path.join(base_path, relative_path)
 
     def github(self):
         webbrowser.open("https://github.com/irania9O/")
@@ -169,7 +171,7 @@ class Window(QMainWindow):
 
     def About(self):
         msg = QMessageBox()
-        msg.setWindowIcon(self.resource_path(QIcon("images/calculator_icon.png")))
+        msg.setWindowIcon(QIcon(self.resource_path("images/calculator_icon.png")))
         msg.setText("Programmed by : Seyed Ali Kamali \nVersion : 1")
         msg.setWindowTitle("Error")
         msg.exec_()
@@ -189,7 +191,7 @@ class Window(QMainWindow):
                 echo.setText(str(new_info))
         except:
             msg = QMessageBox()
-            msg.setWindowIcon(self.resource_path(QIcon("images/calculator_icon.png")))
+            msg.setWindowIcon(QIcon(self.resource_path("images/calculator_icon.png")))
             msg.setIcon(QMessageBox.Critical)
             msg.setText("An error occurred.")
             msg.setWindowTitle("Error")
@@ -210,7 +212,7 @@ class Window(QMainWindow):
                 echo.setText(str(new_info))
         except:
             msg = QMessageBox()
-            msg.setWindowIcon(self.resource_path(QIcon("images/calculator_icon.png")))
+            msg.setWindowIcon(QIcon(self.resource_path("images/calculator_icon.png")))
             msg.setIcon(QMessageBox.Critical)
             msg.setText("An error occurred.")
             msg.setWindowTitle("Error")
@@ -231,7 +233,7 @@ class Window(QMainWindow):
                 echo.setText(str(new_info))
         except:
             msg = QMessageBox()
-            msg.setWindowIcon(self.resource_path(QIcon("images/calculator_icon.png")))
+            msg.setWindowIcon(QIcon(self.resource_path("images/calculator_icon.png")))
             msg.setIcon(QMessageBox.Critical)
             msg.setText("An error occurred.")
             msg.setWindowTitle("Error")
@@ -252,7 +254,7 @@ class Window(QMainWindow):
                 echo.setText(str(new_info))
         except:
             msg = QMessageBox()
-            msg.setWindowIcon(self.resource_path(QIcon("images/calculator_icon.png")))
+            msg.setWindowIcon(QIcon(self.resource_path("images/calculator_icon.png")))
             msg.setIcon(QMessageBox.Critical)
             msg.setText("An error occurred.")
             msg.setWindowTitle("Error")
@@ -273,7 +275,7 @@ class Window(QMainWindow):
                 echo.setText(str(new_info))
         except:
             msg = QMessageBox()
-            msg.setWindowIcon(self.resource_path(QIcon("images/calculator_icon.png")))
+            msg.setWindowIcon(QIcon(self.resource_path("images/calculator_icon.png")))
             msg.setIcon(QMessageBox.Critical)
             msg.setText("An error occurred.")
             msg.setWindowTitle("Error")
@@ -294,7 +296,7 @@ class Window(QMainWindow):
                 echo.setText(str(new_info))
         except:
             msg = QMessageBox()
-            msg.setWindowIcon(self.resource_path(QIcon("images/calculator_icon.png")))
+            msg.setWindowIcon(QIcon(self.resource_path("images/calculator_icon.png")))
             msg.setIcon(QMessageBox.Critical)
             msg.setText("An error occurred.")
             msg.setWindowTitle("Error")
@@ -329,7 +331,7 @@ class Window(QMainWindow):
                 echo.setText(str(new_info))
         except:
             msg = QMessageBox()
-            msg.setWindowIcon(self.resource_path(QIcon("images/calculator_icon.png")))
+            msg.setWindowIcon(QIcon(self.resource_path("images/calculator_icon.png")))
             msg.setIcon(QMessageBox.Critical)
             msg.setText("An error occurred.")
             msg.setWindowTitle("Error")
@@ -363,7 +365,9 @@ class Window(QMainWindow):
 
             except:
                 msg = QMessageBox()
-                msg.setWindowIcon(self.resource_path(QIcon("images/calculator_icon.png")))
+                msg.setWindowIcon(
+                    QIcon(self.resource_path("images/calculator_icon.png"))
+                )
                 msg.setIcon(QMessageBox.Critical)
                 msg.setText("Negative numbers have no roots")
                 msg.setWindowTitle("Error")
@@ -377,7 +381,9 @@ class Window(QMainWindow):
                     echo.setText(str(new_info))
             except:
                 msg = QMessageBox()
-                msg.setWindowIcon(self.resource_path(QIcon("images/calculator_icon.png")))
+                msg.setWindowIcon(
+                    QIcon(self.resource_path("images/calculator_icon.png"))
+                )
                 msg.setIcon(QMessageBox.Critical)
                 msg.setText("Negative numbers have no roots")
                 msg.setWindowTitle("Error")
@@ -398,14 +404,18 @@ class Window(QMainWindow):
 
                 else:
                     msg = QMessageBox()
-                    msg.setWindowIcon(self.resource_path(QIcon("images/calculator_icon.png")))
+                    msg.setWindowIcon(
+                        QIcon(self.resource_path("images/calculator_icon.png"))
+                    )
                     msg.setIcon(QMessageBox.Critical)
                     msg.setText("Accepting positive floats with integral values")
                     msg.setWindowTitle("Error")
                     msg.exec_()
             except:
                 msg = QMessageBox()
-                msg.setWindowIcon(self.resource_path(QIcon("images/calculator_icon.png")))
+                msg.setWindowIcon(
+                    QIcon(self.resource_path("images/calculator_icon.png"))
+                )
                 msg.setIcon(QMessageBox.Critical)
                 msg.setText("Overflow")
                 msg.setWindowTitle("Error")
@@ -414,7 +424,9 @@ class Window(QMainWindow):
             try:
                 if float(data) > 50000:
                     msg = QMessageBox()
-                    msg.setWindowIcon(self.resource_path(QIcon("images/calculator_icon.png")))
+                    msg.setWindowIcon(
+                        QIcon(self.resource_path("images/calculator_icon.png"))
+                    )
                     msg.setIcon(QMessageBox.Critical)
                     msg.setText("Overflow")
                     msg.setWindowTitle("Error")
@@ -425,7 +437,9 @@ class Window(QMainWindow):
                     echo.setText(str(new_info))
             except:
                 msg = QMessageBox()
-                msg.setWindowIcon(self.resource_path(QIcon("images/calculator_icon.png")))
+                msg.setWindowIcon(
+                    QIcon(self.resource_path("images/calculator_icon.png"))
+                )
                 msg.setIcon(QMessageBox.Critical)
                 msg.setText("Accepting positive floats with integral values")
                 msg.setWindowTitle("Error")
@@ -538,7 +552,9 @@ class Window(QMainWindow):
                 data = 1
             if float(data) == 0:
                 msg = QMessageBox()
-                msg.setWindowIcon(self.resource_path(QIcon("images/calculator_icon.png")))
+                msg.setWindowIcon(
+                    QIcon(self.resource_path("images/calculator_icon.png"))
+                )
                 msg.setIcon(QMessageBox.Critical)
                 msg.setText("Cannot divide by zero!")
                 msg.setWindowTitle("Error")
@@ -554,7 +570,9 @@ class Window(QMainWindow):
                 self.calculator.sqrt_n(int(data))
             except:
                 msg = QMessageBox()
-                msg.setWindowIcon(self.resource_path(QIcon("images/calculator_icon.png")))
+                msg.setWindowIcon(
+                    QIcon(self.resource_path("images/calculator_icon.png"))
+                )
                 msg.setIcon(QMessageBox.Critical)
                 msg.setText("Accepting positive floats with integral values")
                 msg.setWindowTitle("Error")
@@ -568,7 +586,9 @@ class Window(QMainWindow):
                 self.calculator **= float(data)
             except:
                 msg = QMessageBox()
-                msg.setWindowIcon(self.resource_path(QIcon("images/calculator_icon.png")))
+                msg.setWindowIcon(
+                    QIcon(self.resource_path("images/calculator_icon.png"))
+                )
                 msg.setIcon(QMessageBox.Critical)
                 msg.setText("An error occurred.")
                 msg.setWindowTitle("Error")
