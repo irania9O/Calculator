@@ -33,6 +33,6 @@ python main.py
 <br>
 
 # Screenshots
-![simple_gui](./screenshots/simple_gui.png)
-![button_hover](./screenshots/button_hover.png)
-![button_pressed](./screenshots/button_pressed.png)
+![simple_gui](./screenshots/simple_gui.jpg)
+![button_hover](./screenshots/button_hover.jpg)
+![button_pressed](./screenshots/button_pressed.jpg)
