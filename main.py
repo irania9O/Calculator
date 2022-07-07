@@ -1,10 +1,11 @@
 from PyQt5.uic import loadUi
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLineEdit, QShortcut, QMessageBox
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLineEdit, QShortcut, QMessageBox, QAction
 from PyQt5.QtGui import QKeySequence, QIcon
 import sys
 from functools import partial
 from files.calculator import Calculator
 from math import exp, factorial, pi, sqrt, pow, sin, cos, tan, log10
+import webbrowser
 class Window(QMainWindow):
     def __init__(self):
         super(Window, self).__init__()
@@ -126,9 +127,39 @@ class Window(QMainWindow):
 
         #operator button
         self.b_operator = self.findChild(QPushButton, "b_operator")
+        
+        # action Github
+        actiongithub = self.findChild(QAction, "actiongithub")
+        actiongithub.triggered.connect( self.github ) 
+
+        # action Telegram
+        actionTelegram = self.findChild(QAction, "actionTelegram")
+        actionTelegram.triggered.connect( self.Telegram ) 
+
+        # action About
+        actionAbout = self.findChild(QAction, "actionAbout")
+        actionAbout.triggered.connect( self.About ) 
+
+        # action exit
+        actionExit = self.findChild(QAction, "actionExit")
+        actionExit.triggered.connect( self.close ) 
+        b_division.setShortcut("alt+F4")
 
         # show all the widgets
         self.show()
+
+    def github(self):
+        webbrowser.open('https://github.com/irania9O/')
+
+    def Telegram(self):
+        webbrowser.open('https://t.me/irania9O/')
+
+    def About(self):
+        msg = QMessageBox()
+        msg.setWindowIcon(QIcon("images/calculator_icon.png"))
+        msg.setText("Programmed by : Seyed Ali Kamali \nVersion : 1")
+        msg.setWindowTitle("Error")
+        msg.exec_()
 
     def exp(self):
         echo =  self.findChild(QLineEdit, "echo")
