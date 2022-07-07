@@ -77,12 +77,12 @@ class Calculator:
         return Calculator(self.value)
     
     def cos(self):
-        #Calculate the tangent of self.value radians.
+        #Calculate the cosine of self.value radians.
         self.value = cos(self.value)
         return Calculator(self.value)
     
     def tan(self):
-        #Calculate the cosine of self.value radians.
+        #Calculate the tangent of self.value radians.
         self.value = tan(self.value)
         return Calculator(self.value)    
 
