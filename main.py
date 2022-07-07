@@ -4,7 +4,7 @@ from PyQt5.QtGui import QKeySequence, QIcon
 import sys
 from functools import partial
 from files.calculator import Calculator
-from math import factorial, pi, sqrt
+from math import factorial, pi, sqrt, pow
 class Window(QMainWindow):
     def __init__(self):
         super(Window, self).__init__()
@@ -91,11 +91,36 @@ class Window(QMainWindow):
         b_radicalxy = self.findChild(QPushButton, "b_radical_2")
         b_radicalxy.clicked.connect( self.radicalxy ) 
 
+        # prower x ^ 2
+        b_power_2 = self.findChild(QPushButton, "b_power_2")
+        b_power_2.clicked.connect( self.power_2 ) 
+
         #operator button
         self.b_operator = self.findChild(QPushButton, "b_operator")
 
         # show all the widgets
         self.show()
+
+    def power_2(self):
+        echo =  self.findChild(QLineEdit, "echo")
+        value = self.findChild(QLineEdit, "value")
+        data = echo.text()
+        last_data = value.text()
+        try:
+            if data == "":
+                if last_data != "":
+                    self.calculator **= 2 
+                    value.setText(str(self.calculator.value))
+            else:
+                new_info =  pow(float(data), 2)
+                echo.setText(str(new_info))
+        except :
+            msg = QMessageBox()
+            msg.setWindowIcon(QIcon("images/calculator_icon.png"))
+            msg.setIcon(QMessageBox.Critical)
+            msg.setText("Error")
+            msg.setWindowTitle("Error")
+            msg.exec_()
 
     def radicalxy(self):
         self.commiter()
