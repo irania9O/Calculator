@@ -39,6 +39,7 @@ class Window(QMainWindow):
         # Clear all
         b_clear_e = self.findChild(QPushButton, "b_clear_e")
         b_clear_e.clicked.connect( self.clear_all )
+        b_clear_e.setShortcut("Esc")
         
         # Clear all and add Delete shortcut
         b_clear = self.findChild(QPushButton, "b_clear")
