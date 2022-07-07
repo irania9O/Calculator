@@ -36,3 +36,4 @@ python main.py
 ![simple_gui](./screenshots/simple_gui.jpg)
 ![button_hover](./screenshots/button_hover.jpg)
 ![button_pressed](./screenshots/button_pressed.jpg)
+![qaction_bar](./screenshots/qaction_bar.jpg)
