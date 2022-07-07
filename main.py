@@ -4,7 +4,7 @@ from PyQt5.QtGui import QKeySequence, QIcon
 import sys
 from functools import partial
 from files.calculator import Calculator
-from math import factorial, pi, sqrt, pow
+from math import factorial, pi, sqrt, pow, sin, cos, tan
 class Window(QMainWindow):
     def __init__(self):
         super(Window, self).__init__()
@@ -104,11 +104,36 @@ class Window(QMainWindow):
         b_power_10_x = self.findChild(QPushButton, "b_power_10_x")
         b_power_10_x.clicked.connect( self.power_10_x ) 
 
+        # sinus
+        b_sin = self.findChild(QPushButton, "b_sin")
+        b_sin.clicked.connect( self.sin ) 
+
         #operator button
         self.b_operator = self.findChild(QPushButton, "b_operator")
 
         # show all the widgets
         self.show()
+
+    def sin(self):
+        echo =  self.findChild(QLineEdit, "echo")
+        value = self.findChild(QLineEdit, "value")
+        data = echo.text()
+        last_data = value.text()
+        try:
+            if data == "":
+                if last_data != "":
+                    self.calculator.sin() 
+                    value.setText(str(self.calculator.value))
+            else:
+                new_info =  sin(float(data))
+                echo.setText(str(new_info))
+        except :
+            msg = QMessageBox()
+            msg.setWindowIcon(QIcon("images/calculator_icon.png"))
+            msg.setIcon(QMessageBox.Critical)
+            msg.setText("An error occurred.")
+            msg.setWindowTitle("Error")
+            msg.exec_()
 
     def power_10_x(self):
         echo =  self.findChild(QLineEdit, "echo")
