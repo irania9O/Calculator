@@ -100,11 +100,37 @@ class Window(QMainWindow):
         b_power_x_y = self.findChild(QPushButton, "b_power_x_y")
         b_power_x_y.clicked.connect( self.power_x_y ) 
 
+        # prower 10 ^ x
+        b_power_10_x = self.findChild(QPushButton, "b_power_10_x")
+        b_power_10_x.clicked.connect( self.power_10_x ) 
+
         #operator button
         self.b_operator = self.findChild(QPushButton, "b_operator")
 
         # show all the widgets
         self.show()
+
+    def power_10_x(self):
+        echo =  self.findChild(QLineEdit, "echo")
+        value = self.findChild(QLineEdit, "value")
+        data = echo.text()
+        last_data = value.text()
+        try:
+            if data == "":
+                if last_data != "":
+                    self.calculator.ten_pow() 
+                    value.setText(str(self.calculator.value))
+            else:
+                new_info =  pow(10, float(data))
+                echo.setText(str(new_info))
+        except :
+            msg = QMessageBox()
+            msg.setWindowIcon(QIcon("images/calculator_icon.png"))
+            msg.setIcon(QMessageBox.Critical)
+            msg.setText("An error occurred.")
+            msg.setWindowTitle("Error")
+            msg.exec_()
+
     def power_x_y(self):
         self.commiter()
         self.last_func  = 'power'
