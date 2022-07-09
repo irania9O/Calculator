@@ -21,7 +21,7 @@ git clone https://github.com/irania9O/Calculator.git
 - Install from your terminal with pip requirements.txt:
 
 ```bash
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 <br>
 
